@@ -1,0 +1,46 @@
+CULTIVO: maíz
+ENFERMEDAD: mancha foliar de turcicum
+FUENTE: Ficha Técnica CIMMYT — Enfermedades del Maíz 2021
+
+DESCRIPCIÓN
+La mancha foliar del norte o tizón foliar del maíz es causada por el hongo Exserohilum turcicum (sinónimo: Helminthosporium turcicum). Es una de las enfermedades foliares más importantes del maíz en regiones húmedas y templadas.
+
+SÍNTOMAS
+- Lesiones largas, elípticas o en forma de cigarro, de color verde grisáceo al principio y luego beige-marrón con bordes más oscuros.
+- Las lesiones miden entre 2.5 y 15 cm de longitud.
+- En condiciones húmedas, las lesiones muestran un moho verde oliváceo (esporangios del hongo) visible al trasluz.
+- Las lesiones se unen y pueden abarcar toda la hoja, que se seca completamente.
+- Ataca primero las hojas inferiores y avanza hacia arriba.
+- Infecciones severas antes de floración reducen significativamente el rendimiento.
+
+CONDICIONES FAVORABLES
+- Temperatura entre 18 °C y 27 °C (óptimo 20-25 °C).
+- Períodos prolongados de lluvia o rocío (más de 6 horas de humedad foliar).
+- Alta densidad de siembra.
+- Variedades susceptibles.
+
+CICLO DE LA ENFERMEDAD
+El hongo sobrevive en residuos de cosecha en el suelo. Los conidios se dispersan por el viento y la lluvia. El período de incubación es de 7-12 días. En condiciones favorables el ciclo completo dura 1-2 semanas.
+
+TRATAMIENTO
+1. En variedades susceptibles y con más del 15-20% de área foliar afectada antes de floración, aplicar fungicidas:
+   - Propiconazol (Tilt): 0.5 L/ha, curativo.
+   - Azoxistrobina + Ciproconazol (Amistar Xtra): 0.5-0.75 L/ha, preventivo y curativo.
+   - Trifloxistrobina + Ciproconazol (Sphere): 0.4-0.6 L/ha.
+2. Aplicar cuando aparecen los primeros síntomas en las hojas inferiores si el clima es favorable.
+3. En general, si el cultivo está en etapa de espiga o más tardío, la aplicación de fungicidas raramente es económicamente justificable.
+
+PREVENCIÓN
+- Usar híbridos o variedades con resistencia parcial o completa a E. turcicum (consultar catálogo de semillas).
+- Rotar cultivos: no sembrar maíz en el mismo terreno dos años seguidos.
+- Incorporar o quemar los residuos de cosecha para reducir el inóculo.
+- Evitar exceso de densidad de siembra.
+- Fertilización balanceada; el exceso de nitrógeno puede aumentar la susceptibilidad.
+
+PRODUCTOS RECOMENDADOS
+- Tilt (Propiconazol 25% EC) — Syngenta
+- Amistar Xtra (Azoxistrobina + Ciproconazol) — Syngenta
+- Sphere (Trifloxistrobina + Ciproconazol) — Bayer
+- Opera (Piraclostrobina + Epoxiconazol) — BASF
+
+NOTA: Las dosis indicadas son orientativas. Consultar siempre la etiqueta del producto y a un agrónomo certificado antes de aplicar.

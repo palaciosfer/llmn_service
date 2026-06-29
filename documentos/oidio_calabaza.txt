@@ -1,0 +1,48 @@
+CULTIVO: calabaza
+ENFERMEDAD: oídio
+FUENTE: Guía de Enfermedades de Cucurbitáceas — INIFAP 2020
+
+DESCRIPCIÓN
+El oídio o cenicilla de las cucurbitáceas es causado principalmente por los hongos Podosphaera xanthii y Erysiphe cichoracearum. Afecta a calabaza, melón, pepino, sandía y otras cucurbitáceas. Es una enfermedad muy común en climas secos y cálidos.
+
+SÍNTOMAS
+- Polvo blanco harinoso en el haz y envés de las hojas (micelio y conidios del hongo).
+- Las hojas afectadas se tornan amarillas y luego se necrosan.
+- En infecciones severas las hojas se secan y caen prematuramente.
+- Puede afectar tallos y peciolos con el mismo polvo blanco.
+- Los frutos raramente se afectan directamente, pero la pérdida de hojas reduce su tamaño y calidad.
+
+CONDICIONES FAVORABLES
+- Temperatura entre 20 °C y 30 °C (óptimo 25-28 °C).
+- Humedad relativa moderada (50-70%); a diferencia de otros hongos, NO requiere lluvia.
+- Días cálidos y noches frescas.
+- Alta densidad de siembra que reduce la ventilación.
+
+CICLO DE LA ENFERMEDAD
+El hongo no necesita agua libre para germinar; los conidios se dispersan fácilmente por el viento. Sobrevive en restos de plantas y en plantas silvestres de cucurbitáceas. El ciclo puede completarse en 5-7 días en condiciones óptimas.
+
+TRATAMIENTO
+1. Retirar y destruir hojas muy afectadas (más del 50% de la superficie con polvo blanco).
+2. Aplicar fungicidas:
+   - Azufre elemental 80% PM: 3-5 kg/ha, preventivo y curativo inicial; evitar aplicar con temperaturas mayores a 35 °C (fitotoxicidad).
+   - Trifloxistrobina + Tebuconazol (Nativo): 0.5-0.75 L/ha, curativo.
+   - Difenoconazol (Score): 0.5 L/ha, curativo.
+   - Bicarbonato de potasio: alternativa orgánica, 5-10 g/L de agua, preventivo.
+3. Iniciar tratamiento al primer signo de la enfermedad; el oídio avanza rápidamente.
+4. Rotar grupos fungicidas para evitar resistencia.
+
+PREVENCIÓN
+- Usar variedades resistentes o tolerantes al oídio cuando estén disponibles.
+- Mantener distancias de siembra adecuadas para buena ventilación.
+- Evitar exceso de nitrógeno (promueve tejido suculento susceptible).
+- Eliminar restos de cosecha al finalizar el ciclo.
+- Monitorear semanalmente, especialmente en época seca y cálida.
+- Aplicar azufre preventivo cada 10-15 días en zonas de alta presión de la enfermedad.
+
+PRODUCTOS RECOMENDADOS
+- Kumulus DF (Azufre 80%) — BASF
+- Nativo (Trifloxistrobina + Tebuconazol) — Bayer
+- Score (Difenoconazol) — Syngenta
+- Bayleton (Triadimefon) — Bayer
+
+NOTA: Las dosis indicadas son orientativas. Consultar siempre la etiqueta del producto y a un agrónomo certificado antes de aplicar.

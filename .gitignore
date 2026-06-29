@@ -1,0 +1,40 @@
+# ── Entorno y secretos ──────────────────────────────
+.env
+.env.*
+!.env.example
+
+# ── Claude Code ─────────────────────────────────────
+.claude/
+
+# ── Python ──────────────────────────────────────────
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+venv/
+.venv/
+
+# ── Repo del modelo original (ya copiado a modulos/) ─
+modelos-LLM-nlp-/
+
+# ── Pesos CNN (se manejan aparte, no van a git) ────
+modelos/
+*.pth
+
+# ── IDE ─────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ── Cache y herramientas ───────────────────────────
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+
+# ── OS ──────────────────────────────────────────────
+Thumbs.db
+desktop.ini
+.DS_Store

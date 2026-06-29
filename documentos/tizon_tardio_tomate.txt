@@ -1,0 +1,51 @@
+CULTIVO: tomate
+ENFERMEDAD: tizón tardío
+FUENTE: Manual Fitosanitario SAGARPA 2019
+
+DESCRIPCIÓN
+El tizón tardío del tomate es causado por el oomiceto Phytophthora infestans. Es una de las enfermedades más destructivas del tomate y la papa en regiones húmedas y templadas. Puede destruir un cultivo en pocos días si las condiciones son favorables.
+
+SÍNTOMAS
+- Manchas acuosas de color verde oscuro a marrón en hojas, que avanzan rápidamente hacia color marrón-negro.
+- Borde de las manchas con halo amarillo pálido.
+- En el envés de las hojas aparece un moho blanco-grisáceo (esporangios del hongo) bajo condiciones de alta humedad.
+- En tallos: lesiones marrones oscuras que pueden rodear el tallo y matarlo.
+- En frutos: manchas marrones firmes y rugosas, generalmente en la parte superior; el fruto se pudre rápidamente.
+- El tejido afectado huele a podrido.
+
+CONDICIONES FAVORABLES
+- Temperatura entre 10 °C y 25 °C (óptimo 18-22 °C).
+- Humedad relativa superior al 90% durante más de 10 horas.
+- Lluvia frecuente o riego por aspersión.
+- Noches frías y días cálidos con niebla o rocío.
+
+CICLO DE LA ENFERMEDAD
+El patógeno sobrevive en tubérculos de papa infectados y en restos de plantas. Los esporangios se dispersan por el viento y la lluvia. En condiciones óptimas, el ciclo de infección completo ocurre en 4-5 días.
+
+TRATAMIENTO
+1. Eliminar y destruir (quemar o enterrar lejos del campo) todas las plantas y hojas afectadas inmediatamente.
+2. Aplicar fungicidas preventivos o curativos según el grado de infección:
+   - Mancozeb 80% PM: 2-2.5 kg/ha, preventivo.
+   - Metalaxil + Mancozeb (Ridomil Gold): 2 kg/ha, preventivo y curativo temprano.
+   - Cimoxanilo + Mancozeb: 2 kg/ha, curativo en infección inicial.
+   - Clorotalonil 72% SC: 1.5-2 L/ha, preventivo.
+3. Rotar fungicidas entre grupos químicos diferentes para evitar resistencia.
+4. Aplicar cada 5-7 días en condiciones de alto riesgo; cada 10-14 días en condiciones moderadas.
+5. Cubrir bien el envés de las hojas al aplicar.
+
+PREVENCIÓN
+- Usar semillas y plántulas certificadas libres de la enfermedad.
+- Evitar el riego por aspersión; preferir riego por goteo.
+- Mantener buena ventilación entre plantas (distancia de siembra adecuada, poda).
+- Eliminar plantas voluntarias de tomate y papa cercanas.
+- Rotar cultivos: no sembrar tomate ni papa en el mismo terreno por al menos 2-3 años.
+- Aplicar fungicidas preventivos antes de que aparezcan síntomas cuando las condiciones climáticas sean de riesgo.
+- Monitorear el cultivo dos veces por semana durante períodos lluviosos.
+
+PRODUCTOS RECOMENDADOS
+- Ridomil Gold MZ (Metalaxil-M + Mancozeb) — Syngenta
+- Acrobat MZ (Dimetomorf + Mancozeb) — BASF
+- Curzate M (Cimoxanilo + Mancozeb) — DuPont
+- Manzate (Mancozeb 80%) — UPL
+
+NOTA: Las dosis indicadas son orientativas. Consultar siempre la etiqueta del producto y a un agrónomo certificado antes de aplicar.
