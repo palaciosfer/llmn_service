@@ -104,6 +104,64 @@ class ErrorResponse(BaseModel):
     detalle: Optional[str] = None
 
 
+# ── Offline: catálogo y descarga de documentos (RAG on-device) ─────────────
+
+class CatalogItem(BaseModel):
+    id: str
+    crop_name: str
+    disease_name: str
+    title: str
+    source: str
+    size_bytes: int
+    version: str
+
+
+class CatalogResponse(BaseModel):
+    documents: list[CatalogItem]
+
+
+class ChunkModel(BaseModel):
+    id: str
+    index: int
+    text: str
+    embedding: list[float]  # 384-d (MiniLM-L12)
+
+
+class DocumentDownloadResponse(BaseModel):
+    id: str
+    content: str
+    size_bytes: int
+    embedding: list[float]  # embedding global (media de los chunks), 384-d
+    chunks: list[ChunkModel]
+
+
+# ── Mapa epidemiológico REAL (campañas fitosanitarias SENASICA) ────────────
+
+class EstadoResumen(BaseModel):
+    estado: str
+    campanias: int
+    superficie_ha: float
+    productores: int
+    campania_dominante: str
+    cultivo_dominante: str
+
+
+class MapaCampaniasResponse(BaseModel):
+    total_campanias: int
+    estados: list[EstadoResumen]
+
+
+class AlertaResponse(BaseModel):
+    hay_alerta: bool
+    estado: str
+    mensaje: str
+    campania_dominante: Optional[str] = None
+    plaga_dominante: Optional[str] = None
+    cultivo_dominante: Optional[str] = None
+    campanias: Optional[int] = None
+    superficie_ha: Optional[float] = None
+
+
 # ── Token dev ───────────────────────────────────────────────
 
 class TokenDevRequest(BaseModel):

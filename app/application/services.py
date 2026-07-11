@@ -2,8 +2,10 @@ from app.core.entities import ResultadoClasificacion, ResultadoDiagnostico
 from app.core.exceptions import ModeloNoDisponibleError
 from app.core.ports import (
     BusquedaSemanticaPort,
+    CampaniasRepositoryPort,
     ClasificadorPort,
     GeneradorPort,
+    OfflineRepositoryPort,
     OrquestadorPort,
 )
 
@@ -76,3 +78,33 @@ class GeneradorService:
         if not self._generador.esta_disponible():
             raise ModeloNoDisponibleError("Generador LLM (Ollama)")
         return self._generador.generar(prompt, temperatura)
+
+
+class OfflineService:
+    """Caso de uso: catálogo y descarga de documentos para RAG on-device."""
+
+    def __init__(self, offline: OfflineRepositoryPort):
+        self._offline = offline
+
+    def catalogo(self) -> dict:
+        if not self._offline.esta_disponible():
+            raise ModeloNoDisponibleError("Almacén de documentos")
+        return self._offline.catalogo()
+
+    def documento(self, doc_id: str) -> dict | None:
+        if not self._offline.esta_disponible():
+            raise ModeloNoDisponibleError("Almacén de documentos")
+        return self._offline.documento(doc_id)
+
+
+class CampaniasService:
+    """Caso de uso: mapa epidemiológico y alertas (campañas fitosanitarias SENASICA)."""
+
+    def __init__(self, campanias: CampaniasRepositoryPort):
+        self._campanias = campanias
+
+    def mapa(self) -> dict:
+        return self._campanias.mapa()
+
+    def alerta(self, estado: str | None = None) -> dict:
+        return self._campanias.alerta(estado)

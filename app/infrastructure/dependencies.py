@@ -1,14 +1,18 @@
 import logging
 
 from app.application.services import (
+    CampaniasService,
     ClasificadorService,
     DiagnosticoService,
     EmbeddingsService,
     GeneradorService,
+    OfflineService,
 )
 from app.infrastructure.adapters.busqueda_adapter import BertAdapter
+from app.infrastructure.adapters.campanias_adapter import CampaniasAdapter
 from app.infrastructure.adapters.clasificador_adapter import CnnAdapter
 from app.infrastructure.adapters.generador_adapter import OllamaAdapter
+from app.infrastructure.adapters.offline_adapter import OfflineAdapter
 from app.infrastructure.adapters.orquestador_adapter import OrquestadorAdapter
 from app.infrastructure.settings import Settings
 
@@ -26,11 +30,15 @@ class Container:
         self.bert_adapter = BertAdapter()
         self.ollama_adapter = OllamaAdapter(settings)
         self.orquestador_adapter = OrquestadorAdapter()
+        self.offline_adapter = OfflineAdapter()
+        self.campanias_adapter = CampaniasAdapter()
 
         self.diagnostico_service = DiagnosticoService(self.orquestador_adapter)
         self.clasificador_service = ClasificadorService(self.cnn_adapter)
         self.embeddings_service = EmbeddingsService(self.bert_adapter)
         self.generador_service = GeneradorService(self.ollama_adapter)
+        self.offline_service = OfflineService(self.offline_adapter)
+        self.campanias_service = CampaniasService(self.campanias_adapter)
 
         logger.info("Contenedor de dependencias listo")
 
@@ -72,3 +80,11 @@ def get_embeddings_service() -> EmbeddingsService:
 
 def get_generador_service() -> GeneradorService:
     return get_container().generador_service
+
+
+def get_offline_service() -> OfflineService:
+    return get_container().offline_service
+
+
+def get_campanias_service() -> CampaniasService:
+    return get_container().campanias_service

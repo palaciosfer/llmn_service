@@ -71,3 +71,31 @@ class OrquestadorPort(ABC):
 
     @abstractmethod
     def esta_disponible(self) -> bool: ...
+
+
+class OfflineRepositoryPort(ABC):
+    """Puerto de salida: catálogo y descarga de documentos para RAG on-device."""
+
+    @abstractmethod
+    def catalogo(self) -> dict:
+        """Lista de documentos disponibles para descarga (uno por cultivo+fuente)."""
+        ...
+
+    @abstractmethod
+    def documento(self, doc_id: str) -> dict | None:
+        """Documento con su contenido, chunks y embeddings (384-d), o None si no existe."""
+        ...
+
+
+class CampaniasRepositoryPort(ABC):
+    """Puerto de salida: mapa epidemiológico y alertas (campañas fitosanitarias SENASICA)."""
+
+    @abstractmethod
+    def mapa(self) -> dict:
+        """Agregado por estado: campañas, superficie, campaña/cultivo dominante."""
+        ...
+
+    @abstractmethod
+    def alerta(self, estado: str | None = None) -> dict:
+        """Campaña/plaga dominante para un estado, o a nivel nacional si se omite."""
+        ...

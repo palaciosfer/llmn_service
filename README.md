@@ -312,6 +312,133 @@ Content-Type: application/json
 
 ---
 
+### 7. `GET /api/v1/offline/catalog` — Catalogo de documentos descargables
+
+Para que la app prepare el modo offline (RAG on-device) mientras hay conexion. Devuelve un documento por cada par (cultivo, fuente) del corpus.
+
+**Headers:**
+```
+Authorization: Bearer <token_jwt>
+```
+
+**Response 200:**
+```json
+{
+  "documents": [
+    {
+      "id": "doc_a582640ed8c5",
+      "crop_name": "calabaza",
+      "disease_name": "oidio",
+      "title": "Calabaza — oidio",
+      "source": "Guia de Enfermedades de Cucurbitaceas — INIFAP 2020",
+      "size_bytes": 2650,
+      "version": "1.0"
+    }
+  ]
+}
+```
+
+La app filtra este catalogo por los cultivos registrados del usuario y descarga solo esos con el endpoint siguiente.
+
+---
+
+### 8. `GET /api/v1/offline/documents/{doc_id}` — Descargar un documento con embeddings
+
+Descarga el contenido completo de un documento, troceado en chunks, cada uno con su embedding BERT (384 dimensiones, modelo `paraphrase-multilingual-MiniLM-L12-v2`). Pensado para que el telefono guarde esto en su SQLite local y haga busqueda por coseno sin conexion.
+
+**Headers:**
+```
+Authorization: Bearer <token_jwt>
+```
+
+**Response 200:**
+```json
+{
+  "id": "doc_a582640ed8c5",
+  "content": "texto completo del documento...",
+  "size_bytes": 2650,
+  "embedding": [0.021, -0.053, ...],
+  "chunks": [
+    {
+      "id": "doc_a582640ed8c5_c0",
+      "index": 0,
+      "text": "fragmento del documento...",
+      "embedding": [0.021, -0.053, ...]
+    }
+  ]
+}
+```
+
+**Errores especificos:**
+
+| HTTP | Causa                                    |
+|------|-------------------------------------------|
+| 404  | No existe un documento con ese `doc_id`  |
+| 503  | El almacen de documentos no esta disponible |
+
+**Importante para el equipo movil:** los embeddings son de 384 dimensiones. Para que el coseno on-device funcione, la app debe generar el embedding de la consulta con el mismo modelo (384-d) — si usan otro modelo o dimension, las distancias no van a cuadrar. El diagnostico offline en si **no llama a ningun endpoint**: solo usa lo que ya se descargo con estas dos rutas mientras habia conexion.
+
+---
+
+### 9. `GET /api/v1/clustering/mapa-campanias` — Mapa epidemiologico real
+
+Agrega las campanias fitosanitarias reales (SENASICA, `datos/campanias/*.csv`) por estado: numero de campanias, superficie total, campana y cultivo dominante. Sin datos sinteticos ni inventados.
+
+**Headers:**
+```
+Authorization: Bearer <token_jwt>
+```
+
+**Response 200:**
+```json
+{
+  "total_campanias": 584,
+  "estados": [
+    {
+      "estado": "Sinaloa",
+      "campanias": 18,
+      "superficie_ha": 79152.0,
+      "productores": 5116,
+      "campania_dominante": "Manejo Fitosanitario del Maiz",
+      "cultivo_dominante": "maiz"
+    }
+  ]
+}
+```
+
+---
+
+### 10. `GET /api/v1/alertas` — Alerta epidemiologica real
+
+Campana/plaga dominante para un estado, o a nivel nacional si se omite `estado`.
+
+**Headers:**
+```
+Authorization: Bearer <token_jwt>
+```
+
+**Query params:**
+
+| Campo    | Tipo     | Requerido | Descripcion                                    |
+|----------|----------|-----------|-------------------------------------------------|
+| `estado` | `string` | no        | Entidad federativa (ej: `"Sinaloa"`). Si se omite, alerta nacional |
+
+**Response 200:**
+```json
+{
+  "hay_alerta": true,
+  "estado": "Sinaloa",
+  "mensaje": "Campaña activa en Sinaloa: Manejo Fitosanitario del Maiz (maiz).",
+  "campania_dominante": "Manejo Fitosanitario del Maiz",
+  "plaga_dominante": "Gusano cogollero (Spodoptera frugiperda)",
+  "cultivo_dominante": "maiz",
+  "campanias": 7,
+  "superficie_ha": 43275.0
+}
+```
+
+---
+
 ## Codigos de error comunes
 
 | HTTP | Codigo                  | Significado                                   |

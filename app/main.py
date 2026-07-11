@@ -11,6 +11,7 @@ from app.core.exceptions import DomainException
 from app.infrastructure.dependencies import init_container
 from app.infrastructure.middleware import MetricsMiddleware
 from app.infrastructure.routers import (
+    campanias,
     clasificador,
     consultar,
     dev,
@@ -18,6 +19,7 @@ from app.infrastructure.routers import (
     embeddings,
     generador,
     health,
+    offline,
 )
 from app.infrastructure.settings import get_settings
 
@@ -110,6 +112,8 @@ def create_app() -> FastAPI:
     app.include_router(clasificador.router)
     app.include_router(embeddings.router)
     app.include_router(generador.router)
+    app.include_router(offline.router)
+    app.include_router(campanias.router)
 
     if settings.DEV_MODE:
         app.include_router(dev.router)
