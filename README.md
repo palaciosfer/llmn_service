@@ -2,9 +2,9 @@
 
 Microservicio que recibe el diagnostico de la CNN (ejecutada en el movil) junto con el texto de sintomas del usuario, y devuelve tratamiento, prevencion y fuentes usando RAG (busqueda hibrida TF-IDF + BERT + LLM Qwen).
 
-**Base URL en produccion:** `http://<IP_EC2>:8000`
+**Base URL en produccion:** `http://52.1.110.21:8000`
 
-**Documentacion interactiva (Swagger):** `http://<IP_EC2>:8000/docs`
+**Documentacion interactiva (Swagger):** `http://52.1.110.21:8000/docs`
 
 ---
 
@@ -352,7 +352,7 @@ const resultadoCnn = {
 const textoUsuario = "manchas oscuras en las hojas y humedad";
 
 // 4. Llamada al servidor
-const response = await fetch("http://<IP_EC2>:8000/api/v1/consultar", {
+const response = await fetch("http://52.1.110.21:8000/api/v1/consultar", {
   method: "POST",
   headers: {
     "Authorization": `Bearer ${token}`,
