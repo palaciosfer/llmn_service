@@ -7,6 +7,19 @@ services:
       - .env
     environment:
       OLLAMA_URL: "http://ollama:11434/api/generate"
+      OLLAMA_TIMEOUT: "150"
+      MAX_DOCS_LLM: "2"
+    command:
+      - gunicorn
+      - app.main:app
+      - -k
+      - uvicorn.workers.UvicornWorker
+      - -w
+      - "1"
+      - -b
+      - 0.0.0.0:8000
+      - --timeout
+      - "170"
     depends_on:
       ollama:
         condition: service_started
@@ -14,6 +27,8 @@ services:
 
   ollama:
     image: ollama/ollama:latest
+    environment:
+      OLLAMA_KEEP_ALIVE: "-1"
     ports:
       - "11434:11434"
     volumes:

@@ -1,4 +1,4 @@
-from typing import Any, Optional
+from typing import Any, Literal, Optional
 
 from pydantic import BaseModel, Field
 
@@ -37,6 +37,14 @@ class ConsultarRequest(BaseModel):
         default_factory=list,
         max_length=20,
         description="Cultivos para filtrar la búsqueda",
+    )
+    rol: Literal["agricultor", "aprendiz"] = Field(
+        default="agricultor",
+        description=(
+            "Rol para la presentación de la respuesta (agricultor=simple, "
+            "aprendiz=técnica). Es una elección por petición desde la app; no "
+            "es un límite de autorización (eso lo da el JWT)."
+        ),
     )
 
 

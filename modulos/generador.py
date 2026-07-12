@@ -28,7 +28,12 @@ import requests
 _URL_OLLAMA = os.environ.get("OLLAMA_URL", "http://localhost:11434/api/generate")
 _MODELO = os.environ.get("QWEN_MODELO", "qwen3.5:0.8b")  # 0.8b: a bordo del móvil (offline)
 _TIMEOUT = int(os.environ.get("OLLAMA_TIMEOUT", "120"))  # segundos
-_MAX_CHARS_DOC = 3500          # recorta cada documento para no saturar el contexto
+_MAX_CHARS_DOC = 1500          # recorta cada documento para no saturar el contexto
+# Cuántos documentos se envían al LLM. Se recuperan más (para caché y fuentes),
+# pero al prompt solo van los mejores: prompt más corto = más rápido y enfocado.
+# Importante: Ollama carga el modelo con num_ctx=4096 por defecto; mandar 10 docs
+# largos desborda ese contexto y ralentiza la generación.
+_MAX_DOCS_PROMPT = int(os.environ.get("MAX_DOCS_LLM", "4"))
 
 # Roles válidos y su descripción de estilo
 _ROLES = {
@@ -86,7 +91,8 @@ def _construir_prompt(
     confianza = diagnostico.get("confianza_ajustada",
                                 diagnostico.get("confianza_original", 0.0))
     sintomas_txt = ", ".join(sintomas) if sintomas else "no especificados"
-    bloque_docs = _formatear_documentos(documentos)
+    # Solo los mejores documentos van al prompt (los demás se usan para fuentes/caché)
+    bloque_docs = _formatear_documentos(documentos[:_MAX_DOCS_PROMPT])
 
     return f"""{estilo}
 
@@ -115,16 +121,20 @@ DOCUMENTOS DISPONIBLES:
 {bloque_docs}
 
 Con base SOLO en los documentos anteriores, redacta la respuesta con estas secciones,
-usando exactamente estos encabezados:
+usando exactamente estos encabezados. En TRATAMIENTO y PREVENCIÓN escribe **una lista
+con viñetas**, un paso por línea, empezando cada línea con "- " (guion y espacio).
 
 DIAGNÓSTICO:
 (breve confirmación de la enfermedad y el cultivo)
 
 TRATAMIENTO:
-(qué hacer; SI los documentos mencionan dosis y productos concretos, INCLÚYELOS aquí)
+- (paso 1; SI los documentos mencionan dosis y productos concretos, INCLÚYELOS)
+- (paso 2)
+- (paso 3)
 
 PREVENCIÓN:
-(cómo evitar que vuelva)
+- (medida 1 para evitar que vuelva)
+- (medida 2)
 
 FUENTES:
 (lista las fuentes de los documentos que usaste)
@@ -158,7 +168,22 @@ def _llamar_ollama(
         "stream": False,
         "think": False,        # desactiva el "razonamiento" si el modelo lo soporta
         "options": {
-            "temperature": 0.2,  # baja: queremos fidelidad a los documentos
+            "temperature": 0.2,   # baja: queremos fidelidad a los documentos
+            # --- Límites de generación (clave para la latencia y estabilidad) ---
+            # num_predict es EL tope que evita generaciones "runaway" que se pasan
+            # de OLLAMA_TIMEOUT (antes, sin tope, el modelo generaba 1200+ tokens).
+            # A ~6.4 t/s, 512 tokens ≈ 80 s, con margen bajo los 150 s.
+            "num_predict": 512,
+            # num_ctx: contexto total (prompt + salida). Con 2 docs × 1500 chars el
+            # prompt cabe de sobra en 4096; no se baja para no truncar documentos
+            # (bajarlo NO acelera: el costo de prompt-eval depende de los tokens
+            # reales del prompt, no de num_ctx).
+            "num_ctx": 4096,
+            # top_k/top_p/repeat_penalty: ajustan la calidad/repetición del texto.
+            # Impacto en velocidad: despreciable (el cuello es prompt-eval + CPU).
+            "top_k": 20,
+            "top_p": 0.9,
+            "repeat_penalty": 1.1,
         },
     }
 
@@ -208,13 +233,24 @@ def _extraer_secciones(texto: str) -> dict:
         "diagnostico": r"DIAGN[ÓO]STICO",
         "tratamiento": r"TRATAMIENTO",
         "prevencion": r"PREVENCI[ÓO]N",
-        "fuentes": r"FUENTES",
+        # Acepta "FUENTES", "FUENTES RELEVANTES", "FUENTES CONSULTADAS", etc.
+        "fuentes": r"FUENTES(?:[ \t]+\w+)*",
     }
 
-    # Localiza la posición de cada encabezado
+    # Localiza la posición de cada encabezado. El modelo (Qwen 0.8B) no siempre
+    # respeta "DIAGNÓSTICO:"; a menudo devuelve markdown ("### DIAGNÓSTICO",
+    # "**DIAGNÓSTICO:**") o el encabezado sin dos puntos. Se tolera '#'/'##'/'###',
+    # '**' de negrita, y terminación por ':' o por fin de línea. El ancla ^
+    # (re.MULTILINE) exige inicio de línea, para no confundir una mención a media
+    # oración ("el tratamiento del cultivo...") con un encabezado real.
     posiciones = []
     for clave, patron in encabezados.items():
-        m = re.search(patron + r"\s*:", texto, flags=re.IGNORECASE)
+        regex = (
+            r"^[ \t]*(?:#{1,6}[ \t]*)?\*{0,2}[ \t]*"
+            + patron
+            + r"[ \t]*(?::|\*{0,2}[ \t]*$)"
+        )
+        m = re.search(regex, texto, flags=re.IGNORECASE | re.MULTILINE)
         if m:
             posiciones.append((m.start(), m.end(), clave))
     posiciones.sort()
@@ -223,7 +259,10 @@ def _extraer_secciones(texto: str) -> dict:
     for i, (_, fin, clave) in enumerate(posiciones):
         inicio_texto = fin
         fin_texto = posiciones[i + 1][0] if i + 1 < len(posiciones) else len(texto)
-        secciones[clave] = texto[inicio_texto:fin_texto].strip()
+        contenido = texto[inicio_texto:fin_texto].strip()
+        # Limpia un '**' de markdown que pueda quedar tras "**ENCABEZADO:**".
+        contenido = re.sub(r"^\*{2,}\s*", "", contenido).strip()
+        secciones[clave] = contenido
 
     return secciones
 

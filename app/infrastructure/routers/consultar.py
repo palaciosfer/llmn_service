@@ -57,7 +57,10 @@ async def consultar(
             service.consultar_con_diagnostico,
             resultado_cnn=resultado_cnn,
             texto=body.texto,
-            rol=usuario.rol.value,
+            # El rol de presentación viene del body (elección por pantalla en la
+            # app: agricultor=simple, aprendiz=técnica). El JWT sigue
+            # autenticando y gateando roles admin en otros endpoints.
+            rol=body.rol,
             cultivos=cultivos,
         )
     except ModeloNoDisponibleError as exc:
