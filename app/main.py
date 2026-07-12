@@ -11,6 +11,7 @@ from app.core.exceptions import DomainException
 from app.infrastructure.dependencies import init_container
 from app.infrastructure.middleware import MetricsMiddleware
 from app.infrastructure.routers import (
+    agenda,
     campanias,
     clasificador,
     consultar,
@@ -114,6 +115,7 @@ def create_app() -> FastAPI:
     app.include_router(generador.router)
     app.include_router(offline.router)
     app.include_router(campanias.router)
+    app.include_router(agenda.router)
 
     if settings.DEV_MODE:
         app.include_router(dev.router)
